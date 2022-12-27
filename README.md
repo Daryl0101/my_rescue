@@ -6,7 +6,7 @@ A Flutter project for a mobile application targeted to be able to provide for cr
 
 This project is uses the BLoC pattern in flutter. The flutter_bloc and equatable packages are dependencies for this project.
 
-###List of dependencies
+### List of dependencies
 - flutter_bloc
 - equatable
 

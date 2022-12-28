@@ -15,6 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: appThemeData,
       home: const HomePage(),
+      // Disable the debug flag
+      debugShowCheckedModeBanner: false,
     );
   }
 }

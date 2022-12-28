@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_rescue/widgets/text_button.dart';
 import 'package:my_rescue/widgets/weather_forecast.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,10 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: Column(
-        children: const <Widget>[WeatherForecast()],
+        children: const <Widget>[
+          WeatherForecast(), 
+          CustomTextButton(height: 70, text: "Safe Places",)
+        ],
       ),
     );
   }

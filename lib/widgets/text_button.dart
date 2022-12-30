@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:my_rescue/config/themes/theme_config.dart';
 
 class CustomTextButton extends StatelessWidget {
-  const CustomTextButton({
-    super.key,
-    this.height = 50,
-    required this.text
-  });
+  const CustomTextButton(
+      {super.key,
+      this.height = 50,
+      this.width = double.infinity,
+      this.icon,
+      required this.text,
+      required this.textStyle,
+      this.backgroundColor = myRescueBlue,
+      this.buttonSplashColor = myRescueBeige,
+      this.textAlign = TextAlign.center,
+      this.buttonFunction});
 
-  final double height;
+  final double height, width;
   final String text;
+  final TextStyle? textStyle;
+  final Icon? icon;
+  final Color? backgroundColor, buttonSplashColor;
+  final TextAlign? textAlign;
+  final void Function()? buttonFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -16,34 +28,35 @@ class CustomTextButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(20)),
+          color: backgroundColor, borderRadius: BorderRadius.circular(20)),
       // Sized box to define the size of the button
       child: SizedBox(
         height: height,
-
+        width: width,
         // Stack the Material design on top of the button
         child: Stack(
           children: <Widget>[
             // Row of the icon and text
             Row(
               children: <Widget>[
-                Container(
-                  width: height,
-                  height: height,
-                  alignment: Alignment.centerLeft,
-                  child: Center(
-                    child: Icon(
-                      Icons.map_outlined,
-                      color: Theme.of(context).colorScheme.secondary,
+                (() {
+                  if (icon == null) {
+                    return Container();
+                  }
+                  return Container(
+                    width: height,
+                    height: height,
+                    alignment: Alignment.centerLeft,
+                    child: Center(
+                      child: icon,
                     ),
-                  ),
-                ),
+                  );
+                }()),
                 Expanded(
                   child: Text(
                     text,
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.displaySmall,
+                    textAlign: textAlign,
+                    style: textStyle,
                   ),
                 )
               ],
@@ -54,9 +67,9 @@ class CustomTextButton extends StatelessWidget {
             Material(
               type: MaterialType.transparency,
               child: InkWell(
-                onTap: () {},
+                onTap: () => buttonFunction,
                 borderRadius: BorderRadius.circular(20),
-                splashColor: Theme.of(context).colorScheme.background,
+                splashColor: buttonSplashColor,
               ),
             )
           ],

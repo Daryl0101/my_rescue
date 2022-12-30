@@ -20,12 +20,16 @@ const myRescueOrange = Color.fromARGB(255, 253, 113, 78);
 
 // Define the details of the themes we specified
 final appThemeData = ThemeData(
-    backgroundColor: myRescueBeige,
+    scaffoldBackgroundColor: myRescueBeige,
+    //primaryIconTheme: const IconThemeData(color: myRescueBeige),
     textTheme: const TextTheme(
         titleLarge:
             TextStyle(fontFamily: "Lexend", color: Colors.white, fontSize: 24),
+        titleMedium:
+            TextStyle(fontFamily: "Lexend", color: Colors.white, fontSize: 20),
         displaySmall:
             TextStyle(fontFamily: "Lexend", color: Colors.white, fontSize: 14)),
+    useMaterial3: true,
     colorScheme: ColorScheme.fromSwatch().copyWith(
         brightness: Brightness.light,
         primary: myRescueBlue,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_rescue/widgets/drawer.dart';
 import 'package:my_rescue/widgets/text_button.dart';
 import 'package:my_rescue/widgets/weather_forecast.dart';
+import 'package:my_rescue/widgets/app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,21 +12,49 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool showHelpButton = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "MyRescue",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const UpperNavBar(),
+      endDrawer: const CustomDrawer(),
       body: Column(
-        children: const <Widget>[
-          WeatherForecast(), 
-          CustomTextButton(height: 70, text: "Safe Places",)
+        children: <Widget>[
+          const WeatherForecast(),
+          CustomTextButton(
+            height: 70,
+            text: "Safety Guidelines",
+            icon: Icon(
+              Icons.bookmark_border_rounded,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            textStyle: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.start,
+          ),
+          (() {
+            if (showHelpButton) {
+              return CustomTextButton(
+                height: 100,
+                width: MediaQuery.of(context).size.width * 0.5,
+                text: "HELP!",
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 50),
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                buttonSplashColor: Theme.of(context).colorScheme.primary,
+              );
+            } else {
+              return Container();
+            }
+          }())
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() {
+          showHelpButton = !showHelpButton;
+        }),
       ),
     );
   }

@@ -41,6 +41,11 @@ dependencies:
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
   firebase_core: ^2.4.1
+  http: ^0.13.5
+  geocoding: ^2.0.5
+  location: ^4.4.0
+  intl: ^0.18.0
+  weather_icons: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: appThemeData,
-      home: const HomePage(),
+      home: const SafeArea(child: HomePage()),
       // Disable the debug flag
       debugShowCheckedModeBanner: false,
     );

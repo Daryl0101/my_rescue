@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: appThemeData,
-      home: const HelpHomePage(),
+      home: const HomePage(),
       // Disable the debug flag
       debugShowCheckedModeBanner: false,
     );

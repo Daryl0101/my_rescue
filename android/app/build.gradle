@@ -51,7 +51,7 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        manifestPlaceholders += [GMP_KEY: "$System.env.GMP_KEY"]
+        manifestPlaceholders += [GMP_KEY: "$System.env.GOOGLE_MAP_API_KEY"]
     }
 
     buildTypes {

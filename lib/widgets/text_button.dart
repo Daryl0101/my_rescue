@@ -67,7 +67,7 @@ class CustomTextButton extends StatelessWidget {
             Material(
               type: MaterialType.transparency,
               child: InkWell(
-                onTap: () => buttonFunction,
+                onTap: buttonFunction,
                 borderRadius: BorderRadius.circular(20),
                 splashColor: buttonSplashColor,
               ),

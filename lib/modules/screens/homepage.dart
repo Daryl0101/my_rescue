@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_rescue/modules/screens/help-map.dart';
+import 'package:my_rescue/modules/screens/safety-guidelines.dart';
 import 'package:my_rescue/widgets/drawer.dart';
 import 'package:my_rescue/widgets/text_button.dart';
 import 'package:my_rescue/widgets/weather_forecast.dart';
@@ -31,6 +33,12 @@ class _HomePageState extends State<HomePage> {
             ),
             textStyle: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.start,
+            buttonFunction: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SafetyGuidelinesPage()));
+            },
           ),
           (() {
             if (showHelpButton) {
@@ -44,6 +52,10 @@ class _HomePageState extends State<HomePage> {
                     ?.copyWith(fontSize: 50),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 buttonSplashColor: Theme.of(context).colorScheme.primary,
+                buttonFunction: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const HelpMap()));
+                },
               );
             } else {
               return Container();

@@ -33,7 +33,13 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
           CustomTextButton(
             height: 70,
             text: "Safe Places",
-            textStyle: Theme.of(context).textTheme.titleLarge,
+            icon: Icon(
+              Icons.map_outlined,
+              color: Theme.of(context).colorScheme.secondary,
+              size: 30,
+            ),
+            textStyle: Theme.of(context).textTheme.titleMedium,
+            textAlign: TextAlign.center,
           )
         ],
       ),

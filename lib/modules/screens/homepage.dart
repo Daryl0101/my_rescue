@@ -63,11 +63,6 @@ class _HomePageState extends State<HomePage> {
           }())
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() {
-          showHelpButton = !showHelpButton;
-        }),
-      ),
     );
   }
 }

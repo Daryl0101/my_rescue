@@ -43,6 +43,13 @@ dependencies:
   google_maps_flutter: ^2.2.2
   geolocator: ^9.0.2
   envied: ^0.3.0
+  firebase_core: ^2.4.1
+  http: ^0.13.5
+  geocoding: ^2.0.5
+  location: ^4.4.0
+  intl: ^0.18.0
+  weather_icons: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:

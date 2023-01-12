@@ -4,6 +4,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:my_rescue/modules/screens/victim-help-page.dart';
 import 'dart:async';
 
+import 'package:my_rescue/widgets/app_bar.dart';
+
 class HelpMap extends StatefulWidget {
   const HelpMap({super.key});
 
@@ -38,13 +40,7 @@ class _HelpMapState extends State<HelpMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "MyRescue",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const UpperNavBar(),
       body: Stack(alignment: Alignment.topCenter, children: <Widget>[
         Container(
           decoration: BoxDecoration(

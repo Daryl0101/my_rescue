@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_rescue/widgets/app_bar.dart';
 import 'package:my_rescue/widgets/bullet.dart';
 
 class SafetyGuidelinesPage extends StatefulWidget {
@@ -16,15 +17,9 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "MyRescue",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const UpperNavBar(),
       body: Container(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -52,7 +47,8 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
                                 .textTheme
                                 .displaySmall
                                 ?.copyWith(color: Colors.black)
-                                .copyWith(fontSize: 20)),
+                                .copyWith(fontSize: 20).copyWith(decoration: visible_before ? TextDecoration.underline : TextDecoration.none)
+                            ),
                         onTap: () => {
                           setState(() {
                             visible_before = true;
@@ -72,7 +68,7 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
                                 .textTheme
                                 .displaySmall
                                 ?.copyWith(color: Colors.black)
-                                .copyWith(fontSize: 20)),
+                                .copyWith(fontSize: 20).copyWith(decoration: visible_current ? TextDecoration.underline : TextDecoration.none)),
                         onTap: () => {
                           setState(() {
                             visible_before = false;
@@ -92,7 +88,7 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
                                 .textTheme
                                 .displaySmall
                                 ?.copyWith(color: Colors.black)
-                                .copyWith(fontSize: 20)),
+                                .copyWith(fontSize: 20).copyWith(decoration: visible_after ? TextDecoration.underline : TextDecoration.none)),
                         onTap: () => {
                           setState(() {
                             visible_before = false;
@@ -121,7 +117,7 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
                           ),
                           height: MediaQuery.of(context).size.height * 0.6,
                           alignment: Alignment.center,
-                          child: BulletList([
+                          child: BulletList(const [
                             'Prepare an escape route out of the floodplain and away from floodwaters',
                             'Keep the copies of critical documents in a waterproof container',
                             'Prepare an emergency supply kit containing:',
@@ -141,7 +137,7 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
                           ),
                           height: MediaQuery.of(context).size.height * 0.6,
                           alignment: Alignment.center,
-                          child: BulletList([
+                          child: BulletList(const [
                             'Evacuate immediately if told to do so',
                             'Move immediately to higher ground or stay on high ground',
                             'Follow recommended evacuation routes/plans',
@@ -166,7 +162,7 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
                           ),
                           height: MediaQuery.of(context).size.height * 0.6,
                           alignment: Alignment.center,
-                          child: BulletList([
+                          child: BulletList(const [
                             'Do not return home and follow instructions from the public safety officials',
                             'Listen to the latest announcements from the radio and TV',
                             'Inspect electric circuits, gas and water sources before turning them back on or consuming it',

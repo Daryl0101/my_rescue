@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:my_rescue/widgets/app_bar.dart';
 
 class HelpSubmittedPage extends StatefulWidget {
   const HelpSubmittedPage({super.key});
@@ -12,13 +13,7 @@ class _HelpSubmittedPageState extends State<HelpSubmittedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "MyRescue",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const UpperNavBar(),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[

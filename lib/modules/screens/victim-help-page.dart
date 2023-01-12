@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:my_rescue/modules/screens/help-submmited-page.dart';
+import 'package:my_rescue/widgets/app_bar.dart';
 import 'package:my_rescue/widgets/text_button.dart';
 
 class VictimHelpPage extends StatefulWidget {
@@ -14,13 +15,9 @@ class _VictimHelpPage extends State<VictimHelpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "MyRescue",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const UpperNavBar(),
+      // ? This is to avoid pixel overflow when keyboard appears
+      resizeToAvoidBottomInset: false,
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,

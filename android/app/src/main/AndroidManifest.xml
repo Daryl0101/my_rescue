@@ -9,6 +9,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
+        <!--TODO: Replace the android:value with ${GMP_KEY} before committing-->
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="${GMP_KEY}"/>
 

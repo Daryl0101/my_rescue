@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "292432799683",
+    "project_id": "myrescuedb-586c9",
+    "storage_bucket": "myrescuedb-586c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292432799683:android:88ab5a6703a852def07f76",
+        "android_client_info": {
+          "package_name": "com.example.my_rescue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292432799683-dc7mcunmtn74o80qrmv7j6g33jo6aqbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_RUn1frBl_iI0dk3LsxJKl08SQ0HyZIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292432799683-dc7mcunmtn74o80qrmv7j6g33jo6aqbk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292432799683-ut8eg68vgbi1k0ejfg18qvvf687nnc93.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myRescue"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

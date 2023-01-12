@@ -20,9 +20,28 @@ class _VolunteerEnrollTeamState extends State<VolunteerEnrollTeam> {
         iconTheme: IconThemeData(
           color: Theme.of(context).colorScheme.secondary,
         ),
-        title: Text(
-          "MyRescue",
-          style: Theme.of(context).textTheme.titleLarge,
+        title: Row(
+          children: [
+            Text(
+              "MyRescue",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              child: Text(
+                "MEMBER",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
+          ],
         ),
         leading: IconButton(
           onPressed: () => {
@@ -76,7 +95,7 @@ class _VolunteerEnrollTeamState extends State<VolunteerEnrollTeam> {
             ),
             Padding(
               padding: EdgeInsets.only(
-                bottom: paddingBetweenCol,
+                bottom: paddingBetweenCol / 2,
               ),
               child: SizedBox(
                 width: 200,
@@ -118,14 +137,10 @@ class _VolunteerEnrollTeamState extends State<VolunteerEnrollTeam> {
               ),
               child: Text("Get the team code from your leader"),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                bottom: paddingBetweenCol,
-              ),
-              child: CustomTextButton(
-                text: "SUBMIT",
-                textStyle: Theme.of(context).textTheme.titleMedium,
-              ),
+            CustomTextButton(
+              text: "SUBMIT",
+              textStyle: Theme.of(context).textTheme.titleMedium,
+              width: 300,
             ),
           ],
         ),

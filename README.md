@@ -4,7 +4,7 @@ A Flutter project for a mobile application targeted to be able to provide for cr
 
 ## Getting Started
 
-To see better comments in this project within VSCode, please install ["Better Comments" extension in VSCode by Aaron Bond.](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
+To see better comments in this project within VSCode, please install ["Better Comments" extension in VSCode by Aaron Bond.](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments). To be able to properly run the project, you'll need to create a API Key on Google Cloud and enable the Maps SDK for Android as well as Maps SDK for iOS. Check out the [google_maps_flutter package](https://pub.dev/packages/google_maps_flutter) for more info regarding this matter. 
 
 ### List of dependencies
 - weather_icons
@@ -12,6 +12,7 @@ To see better comments in this project within VSCode, please install ["Better Co
 - geocoding
 - http
 - intl
+- google_maps_flutter
 
 ## References
 - [Flutter DateFormat class](https://api.flutter.dev/flutter/intl/DateFormat-class.html)

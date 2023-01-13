@@ -52,6 +52,7 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        manifestPlaceholders += [GMP_KEY: "$System.env.GOOGLE_MAP_API_KEY"]
     }
 
     buildTypes {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_rescue/config/themes/theme_config.dart';
 import 'package:my_rescue/modules/screens/leader-missiondetails.dart';
 import 'package:my_rescue/modules/screens/leader-rescuemission.dart';
+import 'package:my_rescue/modules/screens/signup.dart';
 import 'package:my_rescue/modules/screens/volunteer-enrollteam.dart';
 import 'package:my_rescue/modules/screens/volunteer-homepage.dart';
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: appThemeData,
-      home: LoginPage(),
+      home: LeaderRescueMission(),
       // Disable the debug flag
       debugShowCheckedModeBanner: false,
     );

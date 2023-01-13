@@ -86,7 +86,7 @@ class _VolunteerEnrollTeamState extends State<VolunteerEnrollTeam> {
                 vertical: paddingBetweenCol,
               ),
               child: Text(
-                "Enrolll yourself",
+                "Enroll yourself",
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium

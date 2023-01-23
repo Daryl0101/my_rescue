@@ -31,6 +31,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final _focusName = FocusNode();
   final _focusNric = FocusNode();
 
+  var errorMsg = null;
+
   List<String> occupations = ["Army", "Police", "Firefighter", "Volunteer"];
   String selectedItem = "Volunteer";
   List<Widget> pose = <Widget>[Text('Leader'), Text('Member')];
@@ -198,6 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                               dropdownColor: Colors.white,
                               decoration: InputDecoration(
+                                errorText: errorMsg,
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
@@ -265,38 +268,82 @@ class _SignUpPageState extends State<SignUpPage> {
                             width: MediaQuery.of(context).size.width * 0.5,
                             buttonFunction: () async {
                               if (_formKey.currentState!.validate()) {
-                                User? user =
-                                    await FireAuth.registerUsingEmailPassword(
-                                  email: _emailTextController.text,
-                                  password: _passwordTextController.text,
-                                );
+                                // Check if Volunteers register as Leader
+                                if (selectedItem == "Volunteer" &&
+                                    _selectedPose[0] == true) {
+                                  errorMsg =
+                                      'Volunteer cannot register as Leader';
+                                  setState(() {});
+                                } else {
+                                  var user =
+                                      await FireAuth.registerUsingEmailPassword(
+                                    email: _emailTextController.text,
+                                    password: _passwordTextController.text,
+                                  );
+                                  // Check for errors when signing up
+                                  if (user.runtimeType ==
+                                      FirebaseAuthException) {
+                                    if (user.code == 'weak-password') {
+                                      errorMsg =
+                                          'The password provided is too weak.';
+                                    } else if (user.code ==
+                                        'email-already-in-use') {
+                                      errorMsg =
+                                          'The account already exists for that email.';
+                                    }
+                                    setState(() {});
+                                  } else {
+                                    var count = await FirebaseFirestore.instance
+                                        .collection('teams')
+                                        .get()
+                                        .then(
+                                            (value) => value.size + 1 + 100000);
+                                    final teamId = "A$count";
+                                    final userData = {
+                                      "name": _nameTextController.text,
+                                      "occupation": selectedItem,
+                                      "isLeader": _selectedPose[0] == true
+                                          ? true
+                                          : false,
+                                      "teamCode": _selectedPose[0] == true
+                                          ? FirebaseFirestore.instance
+                                              .collection("teams")
+                                              .doc(teamId)
+                                          : null,
+                                      "nric": _nricTextController.text,
+                                    };
 
-                                final user_data = {
-                                  "name": _nameTextController.text,
-                                  "occupation": selectedItem,
-                                  "isLeader":
-                                      _selectedPose[0] == true ? true : false,
-                                  "teamcode": null,
-                                  "nric": _nricTextController.text,
-                                };
+                                    // Create user profile in "users" collection
+                                    FirebaseFirestore.instance
+                                        .collection("users")
+                                        .doc(user!.uid)
+                                        .set(userData);
 
-                                FirebaseFirestore.instance
-                                    .collection("users")
-                                    .doc(user!.uid)
-                                    .set(user_data);
+                                    // If user is Leader, create new team in "teams" collection
+                                    if (_selectedPose[0] == true) {
+                                      FirebaseFirestore.instance
+                                          .collection("teams")
+                                          .doc(teamId)
+                                          .set({
+                                        "leader": FirebaseFirestore.instance
+                                            .collection('users')
+                                            .doc(user!.uid),
+                                        "members": []
+                                      });
+                                    }
 
-                                if (user != null) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              TestFirestore()));
+                                    if (user != null) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TestFirestore()));
+                                    }
+                                  }
                                 }
-                                ;
                               }
-                              ;
                             },
-                          )
+                          ),
                         ],
                       ),
                     ),

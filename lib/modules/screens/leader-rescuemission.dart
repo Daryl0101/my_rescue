@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_rescue/modules/screens/leader-missiondetails.dart';
+import 'package:my_rescue/modules/screens/profile.dart';
 import 'package:my_rescue/widgets/list_item.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:my_rescue/widgets/mission_details_card.dart';
@@ -136,7 +136,6 @@ class _LeaderRescueMissionState extends State<LeaderRescueMission> {
   }
 
   void acceptButtonFunction() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => LeaderMissionDetails()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
   }
 }

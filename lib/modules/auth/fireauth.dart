@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class FireAuth {
   // Sign Up
-  static Future<User?> registerUsingEmailPassword({
+  static registerUsingEmailPassword({
     required String email,
     required String password,
   }) async {
@@ -16,20 +16,14 @@ class FireAuth {
       );
       user = userCredential.user;
       user = auth.currentUser;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
     } catch (e) {
-      print(e);
+      return (e);
     }
     return user;
   }
 
   // Login
-  static Future<User?> loginUsingEmailPassword({
+  static loginUsingEmailPassword({
     required String email,
     required String password,
     required BuildContext context,
@@ -44,11 +38,7 @@ class FireAuth {
       );
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided.');
-      }
+      return e;
     }
 
     return user;

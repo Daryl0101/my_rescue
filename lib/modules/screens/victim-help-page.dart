@@ -5,7 +5,13 @@ import 'package:my_rescue/widgets/app_bar.dart';
 import 'package:my_rescue/widgets/text_button.dart';
 
 class VictimHelpPage extends StatefulWidget {
-  const VictimHelpPage({super.key});
+  const VictimHelpPage({
+    super.key,
+    required this.latitude,
+    required this.longitude
+  });
+
+  final double latitude, longitude;
 
   @override
   State<VictimHelpPage> createState() => _VictimHelpPage();
@@ -35,7 +41,7 @@ class _VictimHelpPage extends State<VictimHelpPage> {
                   alignment: Alignment.center,
                   child: GoogleMap(
                     initialCameraPosition: CameraPosition(
-                      target: LatLng(5.4141, 100.3288),
+                      target: LatLng(widget.latitude, widget.longitude),
                       zoom: 14.4746,
                     ),
                   )),
@@ -125,7 +131,10 @@ class _VictimHelpPage extends State<VictimHelpPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const HelpSubmittedPage()))
+                            builder: (context) => HelpSubmittedPage(
+                              latitude: widget.latitude,
+                              longitude: widget.longitude,
+                            )))
                   },
                 ),
               ),

@@ -3,7 +3,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:my_rescue/widgets/app_bar.dart';
 
 class HelpSubmittedPage extends StatefulWidget {
-  const HelpSubmittedPage({super.key});
+  const HelpSubmittedPage({
+    super.key,
+    required this.latitude,
+    required this.longitude
+  });
+
+  final double longitude, latitude;
 
   @override
   State<HelpSubmittedPage> createState() => _HelpSubmittedPageState();
@@ -27,7 +33,7 @@ class _HelpSubmittedPageState extends State<HelpSubmittedPage> {
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: GoogleMap(
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(5.4141, 100.3288),
+                    target: LatLng(widget.latitude, widget.longitude),
                     zoom: 14.4746,
                   ),
                   zoomControlsEnabled: false,

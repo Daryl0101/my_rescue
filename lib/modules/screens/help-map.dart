@@ -14,27 +14,62 @@ class HelpMap extends StatefulWidget {
 }
 
 class _HelpMapState extends State<HelpMap> {
-  Completer<GoogleMapController> _controller = Completer();
-  static final CameraPosition _kGoogle = const CameraPosition(
+  String? currentAddress;
+  Position? currentPosition;
+
+  final Completer<GoogleMapController> _controller = Completer();
+  static const CameraPosition _kGoogle = CameraPosition(
     target: LatLng(5.4141, 100.3288),
     zoom: 14.4746,
   );
 
   //Create the list of markers
-  final List<Marker> _marker = <Marker>[
+  List<Marker> _marker = <Marker>[
     Marker(
       markerId: MarkerId('1'),
     ),
   ];
 
-  Future<Position> getUserCurrentLocation() async {
-    await Geolocator.requestPermission()
-        .then((value) {})
-        .onError((error, stackTrace) async {
-      await Geolocator.requestPermission();
-      print("ERROR" + error.toString());
+  // * Check if user have enabled location services and permissions
+  Future<bool> _handleUserLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission locationPermission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content:
+              Text("Location service not enabled. Please enable in settings")));
+      return false;
+    }
+
+    locationPermission = await Geolocator.checkPermission();
+    if (locationPermission == LocationPermission.denied) {
+      locationPermission = await Geolocator.requestPermission();
+      if (locationPermission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Location permissions not enabled."),
+        ));
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // * Helper function to get user location
+  Future<void> getCurrentPosition() async {
+    final hasPermission = await _handleUserLocationPermission();
+    if (!hasPermission) return;
+
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      setState(() {
+        currentPosition = position;
+      });
+    }).catchError((e) {
+      debugPrint(e);
     });
-    return await Geolocator.getCurrentPosition();
   }
 
   @override
@@ -84,32 +119,30 @@ class _HelpMapState extends State<HelpMap> {
                 label: const Text("LOCATE YOURSELF"),
                 heroTag: null,
                 onPressed: () async {
-                  getUserCurrentLocation().then((value) async {
-                    print(value.latitude.toString() +
-                        " " +
-                        value.longitude.toString());
+                  // ? Call the get location function
+                  getCurrentPosition();
 
-                    // marker added for current users location
-                    _marker.add(Marker(
-                      markerId: MarkerId("2"),
-                      position: LatLng(value.latitude, value.longitude),
-                      infoWindow: InfoWindow(
-                        title: "You",
-                      ),
-                    ));
+                  _marker.add(Marker(
+                    markerId: const MarkerId("2"),
+                    position: LatLng(currentPosition?.latitude ?? 5.4141,
+                        currentPosition?.longitude ?? 100.3288),
+                    infoWindow: const InfoWindow(
+                      title: "You",
+                    ),
+                  ));
 
-                    // specified current users location
-                    CameraPosition cameraPosition = new CameraPosition(
-                      target: LatLng(value.latitude, value.longitude),
-                      zoom: 14,
-                    );
+                  // ? specified current users location, if the location is null
+                  // ? it will return a default location at George Town
+                  CameraPosition cameraPosition = CameraPosition(
+                    target: LatLng(currentPosition?.latitude ?? 5.4141,
+                        currentPosition?.longitude ?? 100.3288),
+                    zoom: 14,
+                  );
 
-                    final GoogleMapController controller =
-                        await _controller.future;
-                    controller.animateCamera(
-                        CameraUpdate.newCameraPosition(cameraPosition));
-                    setState(() {});
-                  });
+                  final GoogleMapController controller =
+                      await _controller.future;
+                  controller.animateCamera(
+                      CameraUpdate.newCameraPosition(cameraPosition));
                 },
               )),
           Positioned(
@@ -123,7 +156,10 @@ class _HelpMapState extends State<HelpMap> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const VictimHelpPage()));
+                            builder: (context) => VictimHelpPage(
+                              latitude: currentPosition?.latitude ?? 5.4141,
+                              longitude: currentPosition?.longitude ?? 100.3288,
+                            )));
                   })),
         ],
       ),

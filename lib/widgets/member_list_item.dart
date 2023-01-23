@@ -1,15 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MemberListItem extends StatelessWidget {
-  MemberListItem({
-    super.key,
-    required this.name,
-    required this.occupation,
-    required this.isLeader,
-  });
+  MemberListItem({super.key, required this.element, required this.isLeader});
 
-  final String name;
-  final String occupation;
+  final QueryDocumentSnapshot element;
   final bool isLeader;
 
   @override
@@ -20,36 +16,73 @@ class MemberListItem extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: isLeader != true
+      child: isLeader == true
           ? ListTile(
               title: Text(
-                name,
+                element["name"],
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
                     ?.copyWith(color: Colors.black),
               ),
               subtitle: Text(
-                occupation,
+                element["occupation"],
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               trailing: IconButton(
                 icon: Icon(
-                  Icons.do_not_disturb_on,
-                  color: Colors.black,
+                  Icons.remove_circle,
+                  color: Colors.red,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  // Remove user from "teams" collection
+                  FirebaseFirestore.instance
+                      .collection("teams")
+                      .doc(element["teamCode"].id)
+                      .update({
+                    "members": FieldValue.arrayRemove([element.reference])
+                  });
+                  // Remove team from "users" collection
+                  FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(element.id)
+                      .update({"teamCode": null});
+                },
               ))
           : ListTile(
-              title: Text(
-                name,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: Colors.black),
+              title: Row(
+                children: [
+                  Text(
+                    element["name"],
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.black),
+                  ),
+                  element["isLeader"] != true
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(left: 10),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                          ),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          child: Text(
+                            "LEADER",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: Colors.white),
+                          ),
+                        ),
+                ],
               ),
               subtitle: Text(
-                occupation,
+                element["occupation"],
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_rescue/modules/screens/TestFirestore.dart';
+import 'package:my_rescue/widgets/profile_member_list.dart';
 import 'package:my_rescue/modules/screens/volunteer-homepage.dart';
 import 'package:my_rescue/widgets/app_bar.dart';
 
@@ -10,7 +11,7 @@ import '../../widgets/loading_bar.dart';
 import '../../widgets/text_button.dart';
 import '../auth/fireauth.dart';
 import '../auth/validator.dart';
-import 'leader-missiondetails.dart';
+import 'profile.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -27,6 +28,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final _focusEmail = FocusNode();
   final _focusPassword = FocusNode();
+
+  var errorMsg = null;
 
   Future<FirebaseApp> _initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp(
@@ -101,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Validator.validatePassword(password: value!),
                             style: TextStyle(fontSize: 20),
                             decoration: InputDecoration(
+                              errorText: errorMsg,
                               filled: true,
                               fillColor: Colors.white,
                               border: OutlineInputBorder(
@@ -137,18 +141,28 @@ class _LoginPageState extends State<LoginPage> {
                           // },
                           buttonFunction: () async {
                             if (_formKey.currentState!.validate()) {
-                              User? user =
-                                  await FireAuth.loginUsingEmailPassword(
+                              var user = await FireAuth.loginUsingEmailPassword(
                                 email: _emailTextController.text,
                                 password: _passwordTextController.text,
                                 context: context,
                               );
-                              if (user != null) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => TestFirestore()));
+
+                              if (user.runtimeType == FirebaseAuthException) {
+                                if (user.code == 'user-not-found') {
+                                  errorMsg = 'No user found for that email.';
+                                } else if (user.code == 'wrong-password') {
+                                  errorMsg = 'Wrong password provided.';
+                                }
+                                setState(() {});
+                              } else {
+                                if (user != null) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Profile()));
+                                }
                               }
+
                               // if (user != null) {
                               //   Navigator.of(context)
                               //       .pushReplacement(

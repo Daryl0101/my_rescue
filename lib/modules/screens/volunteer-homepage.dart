@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_rescue/modules/screens/volunteer-enrollteam.dart';
+import 'package:my_rescue/modules/screens/enrollteam.dart';
 import 'package:my_rescue/widgets/drawer.dart';
 import 'package:my_rescue/widgets/list_item.dart';
 
@@ -56,11 +56,7 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
             ),
             ListItem(
               text: "Rescue Team",
-              specificAction: () {
-                Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => VolunteerEnrollTeam()));
-              },
+              specificAction: () {},
             ),
             ListItem(
               text: "Flood Safety Tips",

@@ -53,4 +53,14 @@ class Validator {
 
     return null;
   }
+
+  static String? validateTeamCode({required String teamCode}) {
+    final teamCodeRegExp = RegExp(r'A[0-9]{6}');
+
+    if (teamCode.isEmpty) {
+      return "Team Code can\'t be empty";
+    } else if (teamCode.length != 7 || !teamCodeRegExp.hasMatch(teamCode)) {
+      return "Invalid Team Code";
+    }
+  }
 }

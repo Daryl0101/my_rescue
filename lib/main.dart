@@ -35,12 +35,31 @@ import 'modules/screens/login.dart';
 
 //   // other Firebase service initialization
 
+import 'modules/screens/TestFirestore.dart';
+import 'modules/screens/homepage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:my_rescue/firebase_options.dart';
+
+import 'modules/screens/login.dart';
+
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//   runApp(const MyApp());
+// }
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+
+//   await Firebase.initializeApp(config);
+//    //initilization of Firebase app
+
+//   // other Firebase service initialization
+
 //   runApp(MyApp());
 // }
-//import 'package:my_rescue/modules/screens/victim-help-page.dart';
-//import 'package:my_rescue/modules/screens/safety-guidelines.dart';
-//import 'package:my_rescue/modules/screens/help-map.dart';
-//import 'package:my_rescue/modules/screens/help-submmited-page.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();

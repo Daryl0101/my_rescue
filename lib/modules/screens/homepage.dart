@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_rescue/config/themes/theme_config.dart';
 import 'package:my_rescue/modules/screens/help-map.dart';
+import 'package:my_rescue/modules/screens/login.dart';
 import 'package:my_rescue/modules/screens/safety-guidelines.dart';
 import 'package:my_rescue/widgets/drawer.dart';
 import 'package:my_rescue/widgets/text_button.dart';
@@ -15,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool showHelpButton = false;
+  bool showHelpButton = false, showSignInButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +25,11 @@ class _HomePageState extends State<HomePage> {
       appBar: const UpperNavBar(),
       endDrawer: const CustomDrawer(),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const WeatherForecast(),
+
+          // * Button that directs to safety guidelines page
           CustomTextButton(
             height: 70,
             text: "Safety Guidelines",
@@ -35,12 +40,22 @@ class _HomePageState extends State<HomePage> {
             textStyle: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.start,
             buttonFunction: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SafetyGuidelinesPage()));
+              Navigator.of(context).pushNamed(SafetyGuidelinesPage.routeName);
             },
           ),
+
+          (() {
+            if (FirebaseAuth.instance.currentUser == null) {
+              return CustomTextButton(
+                  text: "Sign Up/Sign In",
+                  textStyle: Theme.of(context).textTheme.titleMedium,
+                  buttonFunction: () => Navigator.of(context).pushNamed(LoginPage.routeName),
+              );
+            }
+            return Container();
+          }()),
+
+          // * Show the HELP button based on logic
           (() {
             if (showHelpButton) {
               return CustomTextButton(
@@ -61,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             } else {
               return Container();
             }
-          }())
+          }()),
         ],
       ),
       floatingActionButton: FloatingActionButton(

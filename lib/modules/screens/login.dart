@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_rescue/modules/screens/TestFirestore.dart';
-import 'package:my_rescue/widgets/profile_member_list.dart';
-import 'package:my_rescue/modules/screens/volunteer-homepage.dart';
+import 'package:my_rescue/config/themes/theme_config.dart';
+import 'package:my_rescue/modules/screens/signup.dart';
 import 'package:my_rescue/widgets/app_bar.dart';
 
 import '../../firebase_options.dart';
@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   final _focusEmail = FocusNode();
   final _focusPassword = FocusNode();
 
-  var errorMsg = null;
+  var errorMsg;
 
   Future<FirebaseApp> _initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp(
@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Change the navbar later
-      appBar: UpperNavBar(),
+      appBar: const UpperNavBar(),
       body: FutureBuilder(
         future: _initializeFirebase(),
         builder: (context, snapshot) {
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -72,13 +72,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         // Email
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
+                          margin: const EdgeInsets.symmetric(vertical: 10),
                           child: TextFormField(
                             controller: _emailTextController,
                             focusNode: _focusEmail,
                             validator: (value) =>
                                 Validator.validateEmail(email: value!),
-                            style: TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none),
                               hintText: "Email",
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -97,13 +97,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         // Password
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
+                          margin: const EdgeInsets.symmetric(vertical: 10),
                           child: TextFormField(
                             controller: _passwordTextController,
                             focusNode: _focusPassword,
                             validator: (value) =>
                                 Validator.validatePassword(password: value!),
-                            style: TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                             decoration: InputDecoration(
                               errorText: errorMsg,
                               filled: true,
@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none),
                               hintText: "Password",
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -160,7 +160,8 @@ class _LoginPageState extends State<LoginPage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Profile()));
+                                          builder: (context) =>
+                                              const Profile()));
                                 }
                               }
 
@@ -172,34 +173,36 @@ class _LoginPageState extends State<LoginPage> {
                               // }
                             }
                           },
-                        )
+                        ),
+
+                        RichText(
+                            text: TextSpan(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(color: myRescueBlue),
+                                children: <TextSpan>[
+                              const TextSpan(text: "Don't have an account? "),
+                              TextSpan(
+                                  text: "Sign up",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: myRescueOrange),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(context).popAndPushNamed(
+                                          SignUpPage.routeName);
+                                    })
+                            ]))
                       ],
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Don\'t have an account?'),
-                    TextButton(
-                      onPressed: () => {},
-                      child: Text(
-                        "SIGN UP",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      style: ButtonStyle(
-                        overlayColor:
-                            MaterialStatePropertyAll(Colors.transparent),
-                      ),
-                    )
-                  ],
-                ),
               ],
             );
           }
-          return Center(
+          return const Center(
             child: LoadingBar(
               text: "Hold on, we are connecting the server",
             ),

@@ -1,15 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_rescue/modules/screens/TestFirestore.dart';
 import 'package:my_rescue/widgets/app_bar.dart';
 
+import '../../config/themes/theme_config.dart';
 import '../../firebase_options.dart';
 import '../../widgets/loading_bar.dart';
 import '../../widgets/text_button.dart';
 import '../auth/fireauth.dart';
 import '../auth/validator.dart';
+import 'login.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -32,11 +35,11 @@ class _SignUpPageState extends State<SignUpPage> {
   final _focusName = FocusNode();
   final _focusNric = FocusNode();
 
-  var errorMsg = null;
+  var errorMsg;
 
   List<String> occupations = ["Army", "Police", "Firefighter", "Volunteer"];
   String selectedItem = "Volunteer";
-  List<Widget> pose = <Widget>[Text('Leader'), Text('Member')];
+  List<Widget> pose = <Widget>[const Text('Leader'), const Text('Member')];
   final List<bool> _selectedPose = <bool>[true, false];
 
   late Future myFuture;
@@ -58,17 +61,17 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Change the navbar later
-      appBar: UpperNavBar(),
+      appBar: const UpperNavBar(),
       body: SingleChildScrollView(
         child: FutureBuilder(
           future: myFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(20),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -88,14 +91,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           // Email
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             child: TextFormField(
                               controller: _emailTextController,
                               focusNode: _focusEmail,
                               validator: (value) => Validator.validateEmail(
                                 email: value!,
                               ),
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -103,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide.none),
                                 hintText: "Email",
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -114,14 +117,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           // Password
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             child: TextFormField(
                               controller: _passwordTextController,
                               focusNode: _focusPassword,
                               validator: (value) => Validator.validatePassword(
                                 password: value!,
                               ),
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -129,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide.none),
                                 hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -142,14 +145,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           // Name
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             child: TextFormField(
                               controller: _nameTextController,
                               focusNode: _focusName,
                               validator: (value) => Validator.validateName(
                                 name: value!,
                               ),
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -157,7 +160,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide.none),
                                 hintText: "Name",
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -168,13 +171,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           // NRIC
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             child: TextFormField(
                               controller: _nricTextController,
                               focusNode: _focusNric,
                               validator: (value) =>
                                   Validator.validateNric(nric: value!),
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -182,7 +185,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide.none),
                                 hintText: "NRIC",
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -193,9 +196,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           // Occupation
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             child: DropdownButtonFormField<String>(
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
                               ),
@@ -208,7 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide.none),
                                 hintText: "Occupation",
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -227,7 +230,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           // Toggle Button
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             child: ToggleButtons(
                               borderRadius: BorderRadius.circular(10),
                               borderColor:
@@ -238,7 +241,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               selectedBorderColor:
                                   Theme.of(context).colorScheme.secondary,
                               color: Theme.of(context).colorScheme.secondary,
-                              textStyle: TextStyle(fontSize: 20),
+                              textStyle: const TextStyle(fontSize: 20),
                               constraints: BoxConstraints(
                                   minHeight: 50,
                                   minWidth:
@@ -257,6 +260,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               children: pose,
                             ),
                           ),
+
                           // Sign Up Button
                           CustomTextButton(
                             text: "SIGN UP",
@@ -338,7 +342,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  TestFirestore()));
+                                                  const TestFirestore()));
                                     }
                                   }
                                 }
@@ -349,29 +353,30 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Already have an account?'),
-                      TextButton(
-                        onPressed: () => {},
-                        child: Text(
-                          "LOGIN",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStatePropertyAll(Colors.transparent),
-                        ),
-                      )
-                    ],
-                  ),
+                  RichText(
+                      text: TextSpan(
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(color: myRescueBlue),
+                          children: <TextSpan>[
+                        const TextSpan(text: "Already have an account? "),
+                        TextSpan(
+                            text: "Sign in",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(color: myRescueOrange),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.of(context)
+                                    .popAndPushNamed(LoginPage.routeName);
+                              })
+                      ]))
                 ],
               );
             }
-            return LoadingBar(
+            return const LoadingBar(
               text: "Hold on, we are connecting the server",
             );
           },

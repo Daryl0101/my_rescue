@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_rescue/widgets/list_item.dart';
+import 'package:my_rescue/widgets/loading_bar.dart';
 import 'package:my_rescue/widgets/member_list_item.dart';
 
 import '../firebase_options.dart';
@@ -36,7 +37,7 @@ class _ProfileMemberListState extends State<ProfileMemberList> {
     return Container(
         height: MediaQuery.of(context).size.height * 0.45,
         width: MediaQuery.of(context).size.width * 0.8,
-        padding: EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 10),
         child: FutureBuilder(
           future: _initializeFirebase(),
           builder: (context, snapshot) {
@@ -45,9 +46,7 @@ class _ProfileMemberListState extends State<ProfileMemberList> {
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return LoadingBar();
                   case ConnectionState.none:
                     return Text("Nothing");
                   case ConnectionState.active:
@@ -74,7 +73,7 @@ class _ProfileMemberListState extends State<ProfileMemberList> {
                             return memberList;
                           }).toList();
                           return memberList.length <= 1
-                              ? Center(
+                              ? const Center(
                                   child: Text("No member"),
                                 )
                               : Scrollbar(

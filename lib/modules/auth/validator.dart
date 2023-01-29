@@ -62,5 +62,7 @@ class Validator {
     } else if (teamCode.length != 7 || !teamCodeRegExp.hasMatch(teamCode)) {
       return "Invalid Team Code";
     }
+
+    return null;
   }
 }

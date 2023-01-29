@@ -298,23 +298,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                     }
                                     setState(() {});
                                   } else {
-                                    var count = await FirebaseFirestore.instance
-                                        .collection('teams')
-                                        .get()
-                                        .then(
-                                            (value) => value.size + 1 + 100000);
-                                    final teamId = "A$count";
+                                    // User data with default parameters
                                     final userData = {
                                       "name": _nameTextController.text,
                                       "occupation": selectedItem,
                                       "isLeader": _selectedPose[0] == true
                                           ? true
                                           : false,
-                                      "teamCode": _selectedPose[0] == true
-                                          ? FirebaseFirestore.instance
-                                              .collection("teams")
-                                              .doc(teamId)
-                                          : null,
+                                      "teamCode": null,
                                       "nric": _nricTextController.text,
                                     };
 
@@ -324,8 +315,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                         .doc(user!.uid)
                                         .set(userData);
 
-                                    // If user is Leader, create new team in "teams" collection
+                                    // If user is Leader, generate and assign the user to a new team
                                     if (_selectedPose[0] == true) {
+                                      var count = await FirebaseFirestore
+                                          .instance
+                                          .collection('teams')
+                                          .get()
+                                          .then((value) =>
+                                              value.size + 1 + 100000);
+                                      final teamId = "A$count";
                                       FirebaseFirestore.instance
                                           .collection("teams")
                                           .doc(teamId)

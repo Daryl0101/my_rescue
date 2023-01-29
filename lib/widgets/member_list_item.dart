@@ -11,7 +11,7 @@ class MemberListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -30,7 +30,7 @@ class MemberListItem extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               trailing: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.remove_circle,
                   color: Colors.red,
                 ),

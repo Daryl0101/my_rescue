@@ -242,6 +242,7 @@ class _ProfileState extends State<Profile> {
                                               fontWeight: FontWeight.bold),
                                     ))
                               ])
+                            // Show team code
                             : Column(children: [
                                 // Team code
                                 Text(

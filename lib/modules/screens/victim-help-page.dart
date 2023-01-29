@@ -28,7 +28,7 @@ class _VictimHelpPage extends State<VictimHelpPage> {
     "elderVictims": 0,
     "locality": "",
     "location": null,
-    "missionStatus": "pending",
+    "missionStatus": "Pending",
     "requestDateTime": null,
     "state": null,
     "teamInCharge": null,

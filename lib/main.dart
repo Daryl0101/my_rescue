@@ -18,42 +18,8 @@ import 'package:my_rescue/modules/screens/rescuemission.dart';
 import 'package:my_rescue/modules/screens/signup.dart';
 import 'package:my_rescue/modules/screens/victim-help-page.dart';
 
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp(
-//     options: DefaultFirebaseOptions.currentPlatform,
-//   );
-//   runApp(const MyApp());
-// }
-
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-
-//   await Firebase.initializeApp(config);
-//   initilization of Firebase app
-
-import 'modules/screens/testing(missionlist).dart';
 import 'modules/screens/login.dart';
 import 'modules/screens/leader-missionlist.dart';
-
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp(
-//     options: DefaultFirebaseOptions.currentPlatform,
-//   );
-//   runApp(const MyApp());
-// }
-
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-
-//   await Firebase.initializeApp(config);
-//    initilization of Firebase app
-
-//    other Firebase service initialization
-
-//   runApp(MyApp());
-// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

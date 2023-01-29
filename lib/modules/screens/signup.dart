@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_rescue/modules/screens/TestFirestore.dart';
 import 'package:my_rescue/widgets/app_bar.dart';
 
 import '../../config/themes/theme_config.dart';

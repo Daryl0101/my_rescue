@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_rescue/modules/screens/signout.dart';
 
 import '../modules/screens/profile.dart';
 
@@ -24,8 +25,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
             if (widget.userLogIn) {
               return ListTile(
                 onTap: () {
-                  // Closes the drawer
-                  Navigator.pushNamed(context, Profile.routeName).then((value) => Navigator.pop(context));
+                  // Pushes the new screen then pops the drawer
+                  Navigator.pushNamed(context, Profile.routeName)
+                      .then((value) => Navigator.pop(context));
                   // Navigator.pop(context);
                 },
                 title: Text(
@@ -36,25 +38,25 @@ class _CustomDrawerState extends State<CustomDrawer> {
             }
             return Container();
           }()),
-          ListTile(
-              onTap: () {
-                // Closes the drawer
-                Navigator.pop(context);
-              },
-              title: Text(
-                "Rescue Team",
-                style: Theme.of(context).textTheme.titleMedium,
-              )),
-          // ListTile(
-          //   onTap: () {
-          //     FirebaseAuth.instance.signOut();
-          //     Navigator.pop(context, true);
-          //   },
-          //   title: Text(
-          //     "Sign out",
-          //     style: Theme.of(context).textTheme.titleMedium,
-          //   ),
-          // )
+
+          // Sign out button based on user authentication
+          (() {
+            if (widget.userLogIn) {
+              return ListTile(
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                  // Pushes the new screen then pops the drawer
+                  Navigator.pushNamed(context, Signout.routeName)
+                      .then((value) => Navigator.pop(context));
+                },
+                title: Text(
+                  "Sign out",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              );
+            }
+            return Container();
+          }())
         ],
       ),
     );

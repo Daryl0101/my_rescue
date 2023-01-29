@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
 
           // * Show the HELP button based on logic
           (() {
-            if (showHelpButton) {
+            if (showHelpButton && FirebaseAuth.instance.currentUser == null) {
               return CustomTextButton(
                 height: 100,
                 width: MediaQuery.of(context).size.width * 0.5,

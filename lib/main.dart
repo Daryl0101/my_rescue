@@ -12,6 +12,7 @@ import 'package:my_rescue/modules/screens/leader-rescuemission.dart';
 import 'package:my_rescue/modules/screens/login.dart';
 import 'package:my_rescue/modules/screens/profile.dart';
 import 'package:my_rescue/modules/screens/safety-guidelines.dart';
+import 'package:my_rescue/modules/screens/signout.dart';
 import 'package:my_rescue/modules/screens/signup.dart';
 import 'package:my_rescue/modules/screens/victim-help-page.dart';
 
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
         LeaderRescueMission.routeName: (context) => const LeaderRescueMission(),
         LoginPage.routeName: (context) => const LoginPage(),
         SignUpPage.routeName: (context) => const SignUpPage(),
+        Signout.routeName: (context) => const Signout(),
         Profile.routeName: (context) => const Profile(),
       },
 

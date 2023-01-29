@@ -13,6 +13,7 @@ import '../auth/validator.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+  static const String routeName = "/signup";
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();

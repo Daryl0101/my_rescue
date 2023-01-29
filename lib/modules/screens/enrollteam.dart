@@ -9,6 +9,7 @@ class EnrollTeam extends StatefulWidget {
   const EnrollTeam({super.key, required this.user});
 
   final DocumentSnapshot user;
+  static const String routeName = "/enroll-team";
 
   @override
   State<EnrollTeam> createState() => _EnrollTeamState();

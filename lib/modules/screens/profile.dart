@@ -18,6 +18,7 @@ import '../../widgets/loading_bar.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
+  static const String routeName = "/profile";
 
   @override
   State<Profile> createState() => _ProfileState();

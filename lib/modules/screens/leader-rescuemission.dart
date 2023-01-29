@@ -7,6 +7,7 @@ import 'package:my_rescue/widgets/text_button.dart';
 
 class LeaderRescueMission extends StatefulWidget {
   const LeaderRescueMission({super.key});
+  static const String routeName = "/leader-rescue-mission";
 
   @override
   State<LeaderRescueMission> createState() => _LeaderRescueMissionState();

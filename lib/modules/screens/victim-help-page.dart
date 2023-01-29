@@ -12,6 +12,7 @@ class VictimHelpPage extends StatefulWidget {
       {super.key, required this.latitude, required this.longitude});
 
   final double latitude, longitude;
+  static const String routeName = "/help-submission";
 
   @override
   State<VictimHelpPage> createState() => _VictimHelpPage();
@@ -20,6 +21,8 @@ class VictimHelpPage extends StatefulWidget {
 class _VictimHelpPage extends State<VictimHelpPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
+  // ? A Map where it defines all the attributes of a document
+  // ? It also defines the default values if the data is not specified when uploading to Firestore
   var mission = <String, dynamic>{
     "completeDateTime": null,
     "elderVictims": 0,
@@ -35,7 +38,11 @@ class _VictimHelpPage extends State<VictimHelpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const UpperNavBar(),
+      appBar: const UpperNavBar(
+        backButtonFunction: BackButton(
+          color: Colors.white,
+        ),
+      ),
       // ? This is to avoid pixel overflow when keyboard appears
       resizeToAvoidBottomInset: false,
       body: Container(

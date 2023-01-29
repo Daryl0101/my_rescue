@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:my_rescue/modules/screens/homepage.dart';
 import 'package:my_rescue/widgets/app_bar.dart';
 
 class HelpSubmittedPage extends StatefulWidget {
-  const HelpSubmittedPage({
-    super.key,
-    required this.latitude,
-    required this.longitude
-  });
+  const HelpSubmittedPage(
+      {super.key, required this.latitude, required this.longitude});
 
   final double longitude, latitude;
+  static const String routeName = "/help-submitted";
 
   @override
   State<HelpSubmittedPage> createState() => _HelpSubmittedPageState();
@@ -19,7 +18,19 @@ class _HelpSubmittedPageState extends State<HelpSubmittedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const UpperNavBar(),
+      appBar: UpperNavBar(
+        /**
+         * * Since we are at the submitted page, we don't want the user to return
+         * * to the page where they ask for help again. This is to prevent user 
+         * * from spamming the server.
+         * * So, by handling the back button individually, we can return the user 
+         * * to homepage when pressed
+         */
+        backButtonFunction: IconButton(
+          onPressed: () => Navigator.of(context).popUntil(ModalRoute.withName("/")),
+          icon: const Icon(Icons.arrow_back, color: Colors.white,)
+        ),
+      ),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_rescue/config/themes/theme_config.dart';
 import 'package:my_rescue/modules/screens/help-map.dart';
 import 'package:my_rescue/modules/screens/safety-guidelines.dart';
 import 'package:my_rescue/widgets/drawer.dart';
@@ -64,6 +65,9 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: myRescueBeige,
+        splashColor: myRescueBeige,
+        elevation: 0,
         onPressed: () => setState(() {
           showHelpButton = !showHelpButton;
         }),

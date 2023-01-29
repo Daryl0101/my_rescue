@@ -17,13 +17,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool showHelpButton = false, showSignInButton = false;
+  bool showHelpButton = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const UpperNavBar(),
-      endDrawer: const CustomDrawer(),
+      endDrawer: CustomDrawer(userLogIn: FirebaseAuth.instance.currentUser != null),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -49,7 +49,13 @@ class _HomePageState extends State<HomePage> {
               return CustomTextButton(
                   text: "Sign Up/Sign In",
                   textStyle: Theme.of(context).textTheme.titleMedium,
-                  buttonFunction: () => Navigator.of(context).pushNamed(LoginPage.routeName),
+                  buttonFunction: () {
+                    Navigator.of(context).pushNamed(LoginPage.routeName).then((value) {
+                      // ? To rebuild the state if the user is logged in
+                      setState(() {});
+                    });
+                    
+                  },
               );
             }
             return Container();

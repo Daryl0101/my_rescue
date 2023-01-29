@@ -1,17 +1,12 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_rescue/modules/screens/enrollteam.dart';
-import 'package:my_rescue/widgets/list_item.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:my_rescue/widgets/member_list_item.dart';
-import 'package:my_rescue/widgets/mission_details_card.dart';
+import 'package:my_rescue/widgets/app_bar.dart';
+import 'package:my_rescue/widgets/drawer.dart';
 import 'package:my_rescue/widgets/profile_member_list.dart';
 import 'package:my_rescue/widgets/text_button.dart';
-import 'package:intl/intl.dart';
 
 import '../../firebase_options.dart';
 import '../../widgets/loading_bar.dart';
@@ -35,66 +30,9 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        title: Row(
-          children: [
-            Text(
-              "MyRescue",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-
-            // Either deal with user "isLeader" checking, or delete this segment
-            // This part shows the user status (leader/member) in the app bar
-            // Container(
-            //   margin: EdgeInsets.only(left: 10),
-            //   padding: EdgeInsets.symmetric(
-            //     horizontal: 10,
-            //   ),
-            //   alignment: Alignment.center,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(20),
-            //     color: Theme.of(context).colorScheme.secondary,
-            //   ),
-            //   child: Text(
-            //     "LEADER",
-            //     style: Theme.of(context).textTheme.titleSmall,
-            //   ),
-            // ),
-          ],
-        ),
-        leading: IconButton(
-          onPressed: () => {
-            Navigator.of(context).pop(),
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        centerTitle: true,
-      ),
-      endDrawer: Drawer(
-        backgroundColor:
-            Theme.of(context).colorScheme.primary.withOpacity(0.95),
-        width: MediaQuery.of(context).size.width / 2,
-        child: ListView(
-          // Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const SizedBox(
-              height: kToolbarHeight,
-            ),
-            ListItem(
-              text: "Rescue Team",
-              specificAction: () => {},
-            ),
-            ListItem(
-              text: "Flood Safety Tips",
-              specificAction: () => {},
-            ),
-          ],
-        ),
+      appBar: const UpperNavBar(),
+      endDrawer: const CustomDrawer(
+        userLogIn: false,
       ),
       body: FutureBuilder(
         future: _initializeFirebase(),
@@ -110,7 +48,7 @@ class _ProfileState extends State<Profile> {
                   final user = snapshot.data;
                   return Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(vertical: 25),
+                    margin: const EdgeInsets.symmetric(vertical: 25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,12 +65,12 @@ class _ProfileState extends State<Profile> {
                             ),
                             // User Profile
                             Card(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: const EdgeInsets.only(top: 10),
                               color: Colors.white,
                               elevation: 1,
                               child: Container(
                                 width: MediaQuery.of(context).size.width * .8,
-                                padding: EdgeInsets.all(15),
+                                padding: const EdgeInsets.all(15),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -183,7 +121,7 @@ class _ProfileState extends State<Profile> {
                                                     )),
                                           ],
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
@@ -220,7 +158,7 @@ class _ProfileState extends State<Profile> {
                                                     )),
                                           ],
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
@@ -322,12 +260,12 @@ class _ProfileState extends State<Profile> {
                         // Members List
                         user["teamCode"] == null
                             ? Container()
-                            : ProfileMemberList(),
+                            : const ProfileMemberList(),
                         // Leave Team Button
                         user["teamCode"] == null || user["isLeader"] == true
                             ? Container()
                             : CustomTextButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.logout,
                                   color: Colors.white,
                                 ),
@@ -361,12 +299,12 @@ class _ProfileState extends State<Profile> {
                     ),
                   );
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             );
           }
-          return Center(
+          return const Center(
             child: LoadingBar(
               text: "Hold on, we are connecting the server",
             ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_rescue/config/themes/theme_config.dart';
 import 'package:my_rescue/widgets/text_button.dart';
 
 import '../../widgets/list_item.dart';
@@ -116,6 +117,7 @@ class _EnrollTeamState extends State<EnrollTeam> {
                     validator: (value) =>
                         Validator.validateTeamCode(teamCode: value!),
                     maxLines: 1,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: myRescueBlue),
                     textAlign: TextAlign.center,
                     autofocus: true,
                     decoration: InputDecoration(

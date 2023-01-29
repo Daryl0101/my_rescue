@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                             focusNode: _focusEmail,
                             validator: (value) =>
                                 Validator.validateEmail(email: value!),
-                            style: const TextStyle(fontSize: 20),
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.black),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                             focusNode: _focusPassword,
                             validator: (value) =>
                                 Validator.validatePassword(password: value!),
-                            style: const TextStyle(fontSize: 20),
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.black),
                             decoration: InputDecoration(
                               errorText: errorMsg,
                               filled: true,
@@ -133,13 +133,6 @@ class _LoginPageState extends State<LoginPage> {
                           backgroundColor:
                               Theme.of(context).colorScheme.secondary,
                           width: MediaQuery.of(context).size.width * 0.5,
-                          // buttonFunction: () {
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) =>
-                          //               LeaderMissionDetails()));
-                          // },
                           buttonFunction: () async {
                             if (_formKey.currentState!.validate()) {
                               var user = await FireAuth.loginUsingEmailPassword(
@@ -157,20 +150,9 @@ class _LoginPageState extends State<LoginPage> {
                                 setState(() {});
                               } else {
                                 if (user != null) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Profile()));
+                                  Navigator.of(context).pop(false);
                                 }
                               }
-
-                              // if (user != null) {
-                              //   Navigator.of(context)
-                              //       .pushReplacement(
-                              //     MaterialPageRoute(builder: (context) => ProfilePage(user: user)),
-                              //   );
-                              // }
                             }
                           },
                         ),

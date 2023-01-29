@@ -76,11 +76,11 @@ class _TestFirestoreState extends State<TestFirestore> {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                // FirebaseAuth.instance.currentUser == null
-                //     ? Card(
-                //         child: Text("Nothing to see here"),
-                //       )
-                //     :
+                FirebaseAuth.instance.currentUser == null
+                    ? Card(
+                        child: Text("Nothing to see here"),
+                      )
+                    :
                 FutureBuilder(
                   future: FirebaseFirestore.instance
                       .collection("users")

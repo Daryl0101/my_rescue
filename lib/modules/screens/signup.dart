@@ -337,18 +337,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                       });
                                     }
 
-                                    if (user != null) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const TestFirestore()));
+                                    if (user != null && mounted) {
+                                      Navigator.of(context).pop(false);
                                     }
                                   }
                                 }
                               }
                             },
-                          ),
+                          ),                                                                         
                         ],
                       ),
                     ),

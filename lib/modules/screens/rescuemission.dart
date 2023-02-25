@@ -2,11 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_rescue/modules/screens/profile.dart';
+import 'package:my_rescue/widgets/app_bar.dart';
 import 'package:my_rescue/widgets/list_item.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:my_rescue/widgets/loading_bar.dart';
-import 'package:my_rescue/widgets/mission_details_card.dart';
 import 'package:my_rescue/widgets/text_button.dart';
 
 class RescueMission extends StatefulWidget {
@@ -30,23 +29,7 @@ class _RescueMissionState extends State<RescueMission> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        title: Text(
-          "MyRescue",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        leading: IconButton(
-          onPressed: () => {
-            Navigator.of(context).pop(),
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const UpperNavBar(),
       endDrawer: Drawer(
         backgroundColor:
             Theme.of(context).colorScheme.primary.withOpacity(0.95),
@@ -76,6 +59,7 @@ class _RescueMissionState extends State<RescueMission> {
           zoomControlsEnabled: false,
           mapType: MapType.hybrid,
           tiltGesturesEnabled: true,
+          myLocationButtonEnabled: true,
           compassEnabled: true,
           myLocationEnabled: true,
           rotateGesturesEnabled: true,
@@ -101,17 +85,23 @@ class _RescueMissionState extends State<RescueMission> {
               if (snapshot.hasData) {
                 var user = snapshot;
                 return FutureBuilder(
-                    future: FirebaseFirestore.instance
-                        .collection("teams")
-                        .doc(user.data!['teamCode'].id)
-                        .get(),
+                    future: user.data!['isLeader'] == true
+                        ? FirebaseFirestore.instance
+                            .collection("teams")
+                            .doc(user.data!['teamCode'].id)
+                            .get()
+                        : FirebaseFirestore.instance
+                            .collection('teams')
+                            .doc(user.data!['teamCode'])
+                            .get(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var team = snapshot;
                         return DraggableScrollableSheet(
-                          initialChildSize: 0.6,
+                          initialChildSize: 0.1,
                           minChildSize: 0.1,
-                          maxChildSize: 0.6,
+                          maxChildSize:
+                              user.data!['isLeader'] == true ? 0.5 : 0.4,
                           snap: true,
                           builder: (context, scrollController) {
                             return Container(
@@ -154,7 +144,7 @@ class _RescueMissionState extends State<RescueMission> {
                                           ),
                                     ),
                                     Row(
-                                      // crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      // TODO crossAxisAlignment: CrossAxisAlignment.stretch,
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
@@ -314,10 +304,10 @@ class _RescueMissionState extends State<RescueMission> {
                                             ]),
                                       ],
                                     ),
-                                    team.data!["currentMission"] == null
-                                        // Accept Button
+                                    // Complete Button
+                                    widget.mission["missionStatus"] == "Pending"
                                         ? CustomTextButton(
-                                            text: "Accept",
+                                            text: "Complete",
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium,
@@ -331,33 +321,16 @@ class _RescueMissionState extends State<RescueMission> {
                                                   .collection("missions")
                                                   .doc(widget.mission.id)
                                                   .update({
-                                                "missionStatus": "Ongoing",
+                                                "missionStatus": "Complete",
                                                 "teamInCharge":
-                                                    team.data!.reference
+                                                    team.data!.reference,
+                                                "completeDateTime":
+                                                    DateTime.now()
                                               });
-                                              // Update "teams" collection
-                                              FirebaseFirestore.instance
-                                                  .collection("teams")
-                                                  .doc(team.data!.id)
-                                                  .update({
-                                                "currentMission":
-                                                    widget.mission.reference
-                                              });
-                                              setState(() {});
+                                              Navigator.pop(context);
                                             },
                                           )
-                                        // Complete Button
-                                        : CustomTextButton(
-                                            text: "Complete",
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium,
-                                            width: 200,
-                                            backgroundColor: Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
-                                            buttonFunction: () {},
-                                          )
+                                        : Container()
                                   ];
                                   return Container(
                                       margin: const EdgeInsets.only(
@@ -370,10 +343,10 @@ class _RescueMissionState extends State<RescueMission> {
                           },
                         );
                       }
-                      return LoadingBar();
+                      return const LoadingBar();
                     });
               }
-              return LoadingBar();
+              return const LoadingBar();
             }),
       ]),
     );

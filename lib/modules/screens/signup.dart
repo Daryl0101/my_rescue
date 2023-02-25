@@ -97,7 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               validator: (value) => Validator.validateEmail(
                                 email: value!,
                               ),
-                              style: const TextStyle(fontSize: 20),
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: myRescueBlue),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -123,7 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               validator: (value) => Validator.validatePassword(
                                 password: value!,
                               ),
-                              style: const TextStyle(fontSize: 20),
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: myRescueBlue),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -151,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               validator: (value) => Validator.validateName(
                                 name: value!,
                               ),
-                              style: const TextStyle(fontSize: 20),
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: myRescueBlue),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -176,7 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               focusNode: _focusNric,
                               validator: (value) =>
                                   Validator.validateNric(nric: value!),
-                              style: const TextStyle(fontSize: 20),
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: myRescueBlue),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,

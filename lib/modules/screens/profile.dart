@@ -32,7 +32,8 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: const UpperNavBar(),
       endDrawer: const CustomDrawer(
-        userLogIn: false,
+        userLogIn: true,
+        userIsLeader: true,
       ),
       body: FutureBuilder(
         future: _initializeFirebase(),
@@ -225,10 +226,11 @@ class _ProfileState extends State<Profile> {
                                     onPressed: () {
                                       // Navigate to Enrollment Page
                                       Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            EnrollTeam(user: user),
-                                      ));
+                                          .pushNamed(EnrollTeam.routeName,
+                                              arguments: user)
+                                          .then((value) {
+                                        setState(() {});
+                                      });
                                     },
                                     child: Text(
                                       "Enroll Now",

@@ -1,4 +1,3 @@
-import 'dart:async';
 // import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,8 +60,8 @@ class _MissionDetailsCardState extends State<MissionDetailsCard> {
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
-                      Container(
-                        width: 100,
+                      SizedBox(
+                        width: 80,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,7 +217,7 @@ class _MissionDetailsCardState extends State<MissionDetailsCard> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Row(
                   children: [
                     Column(
@@ -292,6 +291,7 @@ class _MissionDetailsCardState extends State<MissionDetailsCard> {
                               .copyWith(
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Text(widget.mission["totalVictims"].toString(),
                             style:

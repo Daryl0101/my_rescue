@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
         SignUpPage.routeName: (context) => const SignUpPage(),
         Signout.routeName: (context) => const Signout(),
         Profile.routeName: (context) => const Profile(),
+        MissionList.routeName: (context) => const MissionList()
       },
 
       // ? The onGenerateRoute parameter are for screens whcih require argument
@@ -57,6 +58,11 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
                 builder: (context) =>
                     EnrollTeam(user: settings.arguments as DocumentSnapshot));
+
+          case RescueMission.routeName:
+            return MaterialPageRoute(
+                builder: (context) => RescueMission(
+                    mission: settings.arguments as QueryDocumentSnapshot));
 
           // * Routes for screens which requires multiple arguments
           case HelpSubmittedPage.routeName:
@@ -71,6 +77,7 @@ class MyApp extends StatelessWidget {
                 builder: (context) =>
                     VictimHelpPage(latitude: args[0], longitude: args[1]));
         }
+        return null;
       },
     );
   }

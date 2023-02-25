@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_rescue/modules/screens/leader-missionlist.dart';
+import 'package:my_rescue/modules/screens/rescuemission.dart';
 import 'package:my_rescue/modules/screens/signout.dart';
 
 import '../modules/screens/profile.dart';
 
 class CustomDrawer extends StatefulWidget {
-  const CustomDrawer({super.key, required this.userLogIn});
+  const CustomDrawer({super.key, required this.userLogIn, required this.userIsLeader});
 
-  final bool userLogIn;
+  final bool userLogIn, userIsLeader;
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -32,6 +34,24 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 },
                 title: Text(
                   "Profile",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              );
+            }
+            return Container();
+          }()),
+
+          (() {
+            if (widget.userLogIn && widget.userIsLeader) {
+              return ListTile(
+                onTap: () {
+                  // Pushes the new screen then pops the drawer
+                  Navigator.pushNamed(context, MissionList.routeName)
+                      .then((value) => Navigator.pop(context));
+                  // Navigator.pop(context);
+                },
+                title: Text(
+                  "Mission List",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               );

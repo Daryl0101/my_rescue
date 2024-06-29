@@ -29,7 +29,6 @@ final appThemeData = ThemeData(
             TextStyle(fontFamily: "Lexend", color: Colors.white, fontSize: 20),
         displaySmall:
             TextStyle(fontFamily: "Lexend", color: Colors.white, fontSize: 14)),
-    useMaterial3: true,
     colorScheme: ColorScheme.fromSwatch().copyWith(
         brightness: Brightness.light,
         primary: myRescueBlue,

@@ -26,7 +26,7 @@ class _WeatherForecastState extends State<WeatherForecast> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24),
-      margin: const EdgeInsets.all(24),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         color: Theme.of(context).colorScheme.primary,

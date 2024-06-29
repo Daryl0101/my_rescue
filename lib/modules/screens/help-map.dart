@@ -8,6 +8,7 @@ import 'package:my_rescue/widgets/app_bar.dart';
 
 class HelpMap extends StatefulWidget {
   const HelpMap({super.key});
+  static const String routeName = "/help-map";
 
   @override
   State<HelpMap> createState() => _HelpMapState();
@@ -75,7 +76,11 @@ class _HelpMapState extends State<HelpMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const UpperNavBar(),
+      appBar: const UpperNavBar(
+        backButtonFunction: BackButton(
+          color: Colors.white,
+        ),
+      ),
       body: Stack(alignment: Alignment.topCenter, children: <Widget>[
         Container(
           decoration: BoxDecoration(
@@ -157,9 +162,10 @@ class _HelpMapState extends State<HelpMap> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => VictimHelpPage(
-                              latitude: currentPosition?.latitude ?? 5.4141,
-                              longitude: currentPosition?.longitude ?? 100.3288,
-                            )));
+                                  latitude: currentPosition?.latitude ?? 5.4141,
+                                  longitude:
+                                      currentPosition?.longitude ?? 100.3288,
+                                )));
                   })),
         ],
       ),

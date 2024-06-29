@@ -26,7 +26,7 @@ class CustomTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // Container to decide the background color
     return Container(
-      margin: const EdgeInsets.all(24),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: backgroundColor, borderRadius: BorderRadius.circular(20)),
       // Sized box to define the size of the button

@@ -5,17 +5,13 @@ import 'package:my_rescue/widgets/bullet.dart';
 
 class SafetyGuidelinesPage extends StatefulWidget {
   const SafetyGuidelinesPage({super.key});
+  static const String routeName = "/safety-guidelines";
 
   @override
   State<SafetyGuidelinesPage> createState() => _SafetyGuidelinesPageState();
 }
 
-class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage>
-    with TickerProviderStateMixin {
-  bool visible_before = true;
-  bool visible_current = false;
-  bool visible_after = false;
-
+class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> with TickerProviderStateMixin {
   late TabController _controller;
 
   @override
@@ -33,7 +29,11 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const UpperNavBar(),
+      appBar: const UpperNavBar(
+        backButtonFunction: BackButton(
+          color: Colors.white,
+        ),
+      ),
       body: Container(
         padding: const EdgeInsets.all(20),
         color: Theme.of(context).colorScheme.background,
@@ -52,21 +52,23 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage>
             ),
             Flexible(
               flex: 1,
-              child: TabBar(controller: _controller, tabs: const [
-                Tab(
-                  text: "Before",
-                ),
-                Tab(
-                  text: "During",
-                ),
-                Tab(
-                  text: "After",
-                )
-              ],
-              indicatorColor: myRescueOrange,
-              isScrollable: true,
-              labelStyle: Theme.of(context).textTheme.titleMedium,
-              labelColor: myRescueBlue,
+              child: TabBar(
+                controller: _controller,
+                tabs: const [
+                  Tab(
+                    text: "Before",
+                  ),
+                  Tab(
+                    text: "During",
+                  ),
+                  Tab(
+                    text: "After",
+                  )
+                ],
+                indicatorColor: myRescueOrange,
+                isScrollable: true,
+                labelStyle: Theme.of(context).textTheme.titleMedium,
+                labelColor: myRescueBlue,
               ),
             ),
             Expanded(
@@ -79,7 +81,8 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage>
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       height: MediaQuery.of(context).size.height * 0.6,
@@ -95,7 +98,8 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage>
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       height: MediaQuery.of(context).size.height * 0.6,
@@ -116,7 +120,8 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage>
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       height: MediaQuery.of(context).size.height * 0.6,
